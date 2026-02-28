@@ -72,18 +72,17 @@ export async function getInventory(productId: number): Promise<Inventory> {
 
 export async function getAllInventory(): Promise<Inventory[]> {
   // Fetch all products, then fetch inventory for each
-  // In a real app you'd want a dedicated endpoint, but we work with what the API provides
   const products = await getProducts();
-  const inventoryPromises = products.map(async (product) => {
+  const inventory: Inventory[] = [];
+  for (const product of products) {
     try {
       const inv = await getInventory(product.id);
-      return { ...inv, productName: product.name };
+      inventory.push({ ...inv, productName: product.name });
     } catch {
-      return null;
+      // Skip products without inventory
     }
-  });
-  const results = await Promise.all(inventoryPromises);
-  return results.filter((inv): inv is Inventory => inv !== null);
+  }
+  return inventory;
 }
 
 export async function updateInventory(

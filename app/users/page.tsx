@@ -1,6 +1,8 @@
 import { getUsers } from "@/lib/api";
 import type { User } from "@/types/user";
 
+export const dynamic = "force-dynamic";
+
 export default async function UsersPage() {
   let users: User[] = [];
   let error: string | null = null;
