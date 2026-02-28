@@ -1,7 +1,7 @@
 import { Product } from "@/types/product";
 
 async function getProducts(): Promise<Product[]> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
   try {
     const res = await fetch(`${apiUrl}/products`, {
       cache: "no-store",
@@ -25,10 +25,24 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900">
       <header className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
-        <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
           <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
             Shop
           </h1>
+          <nav className="flex gap-4">
+            <a
+              href="/users"
+              className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors"
+            >
+              Users
+            </a>
+            <a
+              href="/inventory"
+              className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors"
+            >
+              Inventory
+            </a>
+          </nav>
         </div>
       </header>
 
@@ -37,7 +51,7 @@ export default async function Home() {
           <div className="text-center py-12">
             <p className="text-zinc-600 dark:text-zinc-400">
               No products available. Make sure the backend is running at{" "}
-              {process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}
+              {process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}
             </p>
           </div>
         ) : (
