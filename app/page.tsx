@@ -1,20 +1,23 @@
-import { Product } from "@/types/product";
 import { Header } from "@/components/header";
 import { ProductGrid } from "@/components/product-grid";
+import { api } from "@/lib/api/client";
 import { env } from "@/lib/env";
+import type { Product } from "@/types/product";
+
+export const dynamic = "force-dynamic";
 
 async function getProducts(): Promise<Product[]> {
   try {
-    const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/products`, {
+    const { data, error } = await api.GET("/products", {
       cache: "no-store",
     });
 
-    if (!res.ok) {
-      console.error("Failed to fetch products:", res.status);
+    if (error) {
+      console.error("Failed to fetch products:", error);
       return [];
     }
 
-    return res.json();
+    return data ?? [];
   } catch (error) {
     console.error("Error fetching products:", error);
     return [];
