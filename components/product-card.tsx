@@ -1,4 +1,5 @@
 import { Product } from "@/types/product";
+import { Card } from "@/components/ui/card";
 
 interface ProductCardProps {
   product: Product;
@@ -6,7 +7,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <div className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-6 hover:shadow-lg transition-shadow">
+    <Card hover>
       <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-2">
         {product.name}
       </h2>
@@ -20,6 +21,6 @@ export function ProductCard({ product }: ProductCardProps) {
           ${product.price}
         </span>
       </div>
-    </div>
+    </Card>
   );
 }
